@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@azure/openai": "^2.0.0-beta.2",
     "firebase": "^11.0.1",
     "next": "14.2.14",
     "react": "^18",

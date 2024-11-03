@@ -23,26 +23,30 @@ if (!process.env.NEXT_PUBLIC_FIREBASE_API_KEY) {
 let app: FirebaseApp;
 let analytics: Analytics | null = null;
 
-if (!getApps().length) {
-    app = initializeApp(firebaseConfig);
+// Initialize Firebase based on environment
+if (typeof window === 'undefined') {
+    // Server-side initialization
+    if (!getApps().length) {
+        app = initializeApp(firebaseConfig);
+    } else {
+        app = getApps()[0];
+    }
 } else {
-    app = getApps()[0];
-}
-
-// Initialize Analytics only on client side
-if (typeof window !== 'undefined') {
-    try {
-        analytics = getAnalytics(app);
-    } catch (error) {
-        console.error('Analytics initialization error:', error);
+    // Client-side initialization
+    if (!getApps().length) {
+        app = initializeApp(firebaseConfig);
+        try {
+            analytics = getAnalytics(app);
+        } catch (error) {
+            console.error('Analytics initialization error:', error);
+        }
+    } else {
+        app = getApps()[0];
     }
 }
 
-// Initialize Firestore
+// Initialize services
 export const db = getFirestore(app);
-
-// Initialize Auth
 export const auth = getAuth(app);
-
 export { analytics };
 export default app;
