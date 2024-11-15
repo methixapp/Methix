@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -48,3 +49,6 @@ AZURE_OPENAI_CHAT_DEPLOYMENT=your-gpt4-deployment-name
 
 # Note: Never commit actual API keys or endpoints to version control
 # Copy this file to .env.local and add your actual values there
+=======
+.DS_Store
+>>>>>>> ef43d7e9ed4d99ea230aa4b16f5defb94998939c
