@@ -1,42 +1,53 @@
 import { NextResponse } from 'next/server';
-import OpenAI from '@azure/openai';
 
 export async function POST(request: Request) {
   try {
-    // Create client
-    const client = new OpenAI.OpenAIClient(
-      process.env.AZURE_OPENAI_ENDPOINT!,
-      new OpenAI.AzureKeyCredential(process.env.AZURE_OPENAI_API_KEY!)
-    );
-
     const { messages } = await request.json();
+    
+    // Remove any trailing slashes from the endpoint
+    const baseUrl = process.env.AZURE_OPENAI_ENDPOINT?.replace(/\/$/, '');
+    
+    // Construct the Azure OpenAI API URL properly
+    const apiUrl = `${baseUrl}/openai/deployments/${process.env.AZURE_OPENAI_CHAT_DEPLOYMENT}/chat/completions?api-version=2024-02-15-preview`;
+    
+    console.log('Sending request to:', apiUrl);
 
-    if (!process.env.AZURE_OPENAI_API_KEY || !process.env.AZURE_OPENAI_DEPLOYMENT_NAME) {
-      return NextResponse.json(
-        { error: 'Azure OpenAI configuration is missing' },
-        { status: 500 }
-      );
-    }
-
-    const completion = await client.getChatCompletions(
-      process.env.AZURE_OPENAI_DEPLOYMENT_NAME,
-      messages.map((msg: any) => ({
-        role: msg.role,
-        content: typeof msg.content === 'string' ? msg.content : msg.content.response
-      }))
-    );
-
-    return NextResponse.json({
-      role: 'assistant',
-      content: {
-        response: completion.choices[0].message?.content || "No response generated",
-      }
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': process.env.AZURE_OPENAI_API_KEY!
+      },
+      body: JSON.stringify({
+        messages: messages,
+        max_tokens: 800,
+        temperature: 0.7,
+        frequency_penalty: 0,
+        presence_penalty: 0,
+        top_p: 0.95
+      })
     });
 
-  } catch (error) {
-    console.error('Azure OpenAI API error:', error);
+    if (!response.ok) {
+      const error = await response.text();
+      console.error('Azure OpenAI Error:', error);
+      throw new Error(`Azure OpenAI API error: ${error}`);
+    }
+
+    const data = await response.json();
+    
+    return NextResponse.json({
+      role: 'assistant',
+      content: data.choices[0].message.content
+    });
+
+  } catch (error: any) {
+    console.error('API Error:', error);
     return NextResponse.json(
-      { error: 'Error communicating with Azure OpenAI API' },
+      { 
+        error: 'Error processing chat request',
+        details: error.message 
+      },
       { status: 500 }
     );
   }

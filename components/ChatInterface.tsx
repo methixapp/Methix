@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -8,53 +6,50 @@ interface Message {
 }
 
 export default function ChatInterface() {
-  const [input, setInput] = useState('');
+  const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!message.trim()) return;
 
     setIsLoading(true);
-    const userMessage = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
+    setError(null);
 
     try {
+      const chatPayload = {
+        messages: [
+          ...messages,
+          { role: 'user', content: message }
+        ]
+      };
+
       const response = await fetch('/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [...messages, userMessage]
-        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(chatPayload)
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.details || 'Failed to get response');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send message');
       }
 
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: data.content
-      }]);
-    } catch (error) {
-      console.error('Detailed error:', error);
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: `Error: ${error instanceof Error ? error.message : 'Unknown error occurred'}`
-      }]);
+      const data = await response.json();
+      
+      setMessages(prev => [...prev, 
+        { role: 'user', content: message },
+        { role: 'assistant', content: data.content }
+      ]);
+      setMessage('');
+
+    } catch (err) {
+      console.error('Chat error:', err);
+      setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setIsLoading(false);
     }
@@ -73,17 +68,15 @@ export default function ChatInterface() {
             {msg.content}
           </div>
         ))}
-        {isLoading && (
-          <div className="text-gray-500">Loading...</div>
-        )}
-        <div ref={messagesEndRef} />
+        {isLoading && <div className="text-gray-500">Loading...</div>}
+        {error && <div className="text-red-500">Error: {error}</div>}
       </div>
 
       <form onSubmit={handleSubmit} className="flex gap-2">
         <input
           type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           placeholder="Type your message..."
           className="flex-1 p-2 border rounded"
           disabled={isLoading}
@@ -98,4 +91,4 @@ export default function ChatInterface() {
       </form>
     </div>
   );
-}
+} 
