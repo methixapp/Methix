@@ -41,12 +41,15 @@ export async function POST(request: Request) {
       content: data.choices[0].message.content
     });
 
-  } catch (error: any) {
+  } catch (error) {
+
+    const typedError = error instanceof Error ? error : new Error(String(error));
+
     console.error('API Error:', error);
     return NextResponse.json(
       { 
         error: 'Error processing chat request',
-        details: error.message 
+        details: typedError.message 
       },
       { status: 500 }
     );

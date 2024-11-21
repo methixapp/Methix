@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef } from 'react';
+import Image from 'next/image';
 import { UserProfile } from '../models/UserProfile';
 
 interface ProfileEditProps {
@@ -71,12 +72,14 @@ const ProfileEdit: React.FC<ProfileEditProps> = ({ initialProfile, onSave }) => 
         <label htmlFor="profileImage" className="block text-sm font-medium text-gray-700 mb-2">
           Profile Picture
         </label>
-        <div className="w-32 h-32 mb-4 border border-gray-300 rounded-full overflow-hidden">
+        <div className="w-32 h-32 mb-4 border border-gray-300 rounded-full overflow-hidden relative">
           {imagePreview ? (
-            <img
+            <Image
               src={imagePreview}
               alt="Profile preview"
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              sizes="(max-width: 128px) 100vw"
             />
           ) : (
             <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
