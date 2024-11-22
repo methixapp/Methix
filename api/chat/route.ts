@@ -1,31 +1,51 @@
 import { NextResponse } from 'next/server';
-import { OpenAIClient, AzureKeyCredential } from '@azure/openai';
+import OpenAI from '@azure/openai';
 
 export async function POST(request: Request) {
   try {
-    const { messages } = await request.json();
+    // Debug logging
+    console.log('Starting chat request...');
+    
+    // Verify environment variables
+    if (!process.env.AZURE_OPENAI_API_KEY) {
+      throw new Error('Missing API Key');
+    }
+    if (!process.env.AZURE_OPENAI_ENDPOINT) {
+      throw new Error('Missing Endpoint');
+    }
+    if (!process.env.AZURE_OPENAI_DEPLOYMENT_NAME) {
+      throw new Error('Missing Deployment Name');
+    }
 
-    const client = new OpenAIClient(
-      new AzureKeyCredential(process.env.AZURE_OPENAI_API_KEY!),
-      process.env.AZURE_OPENAI_ENDPOINT
+    const client = new OpenAI.OpenAIClient(
+      process.env.AZURE_OPENAI_ENDPOINT,
+      new OpenAI.AzureKeyCredential(process.env.AZURE_OPENAI_API_KEY)
     );
 
-    const response = await client.getChatCompletions({
-      messages: messages,
-      maxTokens: 800,
-      temperature: 0.7,
-    });
+    // Get the message from the request
+    const { messages } = await request.json();
+    console.log('Received messages:', messages);
+
+    // Make the API call
+    const result = await client.getChatCompletions(
+      process.env.AZURE_OPENAI_DEPLOYMENT_NAME,
+      messages
+    );
+
+    console.log('Got response:', result.choices[0].message);
 
     return NextResponse.json({
       role: 'assistant',
-      content: response.choices[0].message.content,
+      content: {
+        response: result.choices[0].message?.content || "No response generated"
+      }
     });
 
-  } catch (error) {
-    console.error('API Error:', error);
+  } catch (error: any) {
+    console.error('Error details:', error);
     return NextResponse.json(
       { 
-        error: 'Error processing chat request',
+        error: 'Chat API Error', 
         details: error.message 
       },
       { status: 500 }
