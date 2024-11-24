@@ -1,18 +1,27 @@
+// Modified from https://github.com/microsoft/openai/blob/main/examples/azure-ad-authentication/server.ts
+// Modified import statements to use the latest version of openai
+
 import { NextResponse } from 'next/server';
-import { OpenAIClient, AzureKeyCredential } from '@azure/openai';
+import { AzureOpenAI, getBearerTokenProvider } from 'openai';
+import { DefaultAzureCredential } from '@azure/identity';
 
 export async function POST(request: Request) {
   try {
     const { messages } = await request.json();
 
-    const client = new OpenAIClient(
-      new AzureKeyCredential(process.env.AZURE_OPENAI_API_KEY!),
-      process.env.AZURE_OPENAI_ENDPOINT!
-    );
+    const credential = new DefaultAzureCredential();
+    const scope = "https://cognitiveservices.azure.com/.default";
+    const azureADTokenProvider = getBearerTokenProvider(credential, scope);
 
-    const response = await client.getChatCompletions({
-      messages: messages,
-      maxTokens: 800,
+    const client = new AzureOpenAI({
+      azureADTokenProvider,
+      deployment: process.env.AZURE_OPENAI_CHAT_DEPLOYMENT,
+      apiVersion: "2024-10-21",
+    });
+
+    const response = await client.chat.completions.create({
+      messages,
+      max_tokens: 800,
       temperature: 0.7,
     });
 
