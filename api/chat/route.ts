@@ -2,7 +2,8 @@
 // Modified import statements to use the latest version of openai
 
 import { NextResponse } from 'next/server';
-import { AzureOpenAI, getBearerTokenProvider } from 'openai';
+import AzureOpenAI from 'openai';
+import { getBearerTokenProvider } from 'openai';
 import { DefaultAzureCredential } from '@azure/identity';
 
 export async function POST(request: Request) {
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
 
     const response = await client.chat.completions.create({
       messages,
+      model: '',
       max_tokens: 800,
       temperature: 0.7,
     });
