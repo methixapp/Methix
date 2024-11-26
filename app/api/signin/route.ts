@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+/*import { NextResponse } from 'next/server';
 import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import app from '@/app/firebaseConfig';
@@ -61,3 +61,5 @@ function getErrorMessage(errorCode: string): string {
       return 'An error occurred during sign-in';
   }
 }
+*/
+export {};

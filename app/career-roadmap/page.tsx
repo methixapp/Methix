@@ -1,4 +1,4 @@
-import Roadmap from '../components/CareerRoadmap'
+/*import Roadmap from '../components/CareerRoadmap'
 
 export const metadata = {
   title: 'Career Roadmap | Music Industry Platform',
@@ -9,6 +9,13 @@ export default function CareerRoadmapPage() {
   return (
     <main className="min-h-screen bg-white">
       <Roadmap />
+    </main>
+  )
+}
+*/
+export default function CareerRoadmapPage() {
+  return (
+    <main className="min-h-screen bg-white">
     </main>
   )
 }

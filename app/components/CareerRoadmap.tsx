@@ -1,4 +1,4 @@
-'use client'
+/*'use client'
 
 import React, { useState, useEffect } from 'react'
 import { db } from '@/app/firebaseConfig'
@@ -164,3 +164,5 @@ const Roadmap: React.FC = () => {
 }
 
 export default Roadmap
+*/
+export {};

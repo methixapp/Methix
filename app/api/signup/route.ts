@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+/*import { NextResponse } from 'next/server';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { auth } from '@/app/firebaseConfig'; // Adjust this import based on your Firebase config location
@@ -46,3 +46,5 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, message: 'An error occurred during sign-up' }, { status: 500 });
   }
 }
+*/
+export {};

@@ -26,8 +26,8 @@ export default function ChatInterface() {
     if (!input.trim()) return;
 
     setIsLoading(true);
-    const userMessage = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
+    const userMessage: Message = { role: 'user', content: input };
+    setMessages((prev) => [...prev, userMessage]);
     setInput('');
 
     try {

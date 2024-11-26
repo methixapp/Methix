@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+/* import { NextResponse } from 'next/server';
 import { db } from '@/app/firebaseConfig';
 import { collection, addDoc, getDocs, updateDoc, doc, serverTimestamp } from 'firebase/firestore';
 
@@ -67,3 +67,5 @@ export async function PUT(request: Request) {
   }
 }
 
+*/
+export {};

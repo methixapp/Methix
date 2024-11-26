@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+/*import { NextResponse } from 'next/server';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { auth } from '@/app/firebaseConfig';
@@ -78,4 +78,6 @@ export async function POST(request: Request) {
       error: process.env.NODE_ENV === 'development' ? String(error) : undefined
     }, { status: 500 });
   }
-} 
+} */
+
+export {};
