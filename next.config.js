@@ -4,12 +4,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**', // Replace with your specific image domains
-        port: '',
-        pathname: '**',
+        hostname: '**', // Replace '**' with a specific domain, e.g., 'example.com' for stricter security
+        port: '', // Leave empty unless you need to allow specific ports
+        pathname: '**', // Adjust if you want to allow specific paths, e.g., '/images/**'
       },
     ],
   },
-}
+};
 
-module.exports = nextConfig 
+module.exports = nextConfig;
