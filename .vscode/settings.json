@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/92947b80-f63f-4c00-a12d-8fe3d19eb908/resourceGroups/Methix_group/providers/Microsoft.Web/sites/Methix112524",
+    "appService.deploySubpath": "."
+}
