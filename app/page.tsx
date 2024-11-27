@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../app/components/Sidebar';
 
 export default function Home() {
   const userName = "Artist"; // Placeholder for dynamic user name
@@ -8,8 +8,8 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-b from-gray-800 via-gray-700 to-gray-900 text-gray-100">
-      {/* Sidebar */}
-      <Sidebar />
+      {/* sidebar */}
+      < Sidebar />
 
       {/* Main Content */}
       <div className="flex-grow flex flex-col relative">
