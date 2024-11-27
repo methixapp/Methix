@@ -1,15 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import Sidebar from '../app/components/Sidebar';
 
 export default function Home() {
   const userName = "Artist"; // Placeholder for dynamic user name
   const personalizedMessage = `Welcome to your creative space, ${userName}!`;
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-b from-gray-800 via-gray-700 to-gray-900 text-gray-100">
-      {/* sidebar */}
-      < Sidebar />
+    <div className="flex min-h-screen bg-gradient-to-b from-gray-950 via-gray-600 to-gray-900 text-gray-100">
 
       {/* Main Content */}
       <div className="flex-grow flex flex-col relative">
@@ -27,17 +24,17 @@ export default function Home() {
               className="mr-4 rounded-full shadow-lg"
             />
             <div>
-              <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
+              <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
                 Methix
               </h1>
-              <p className="text-lg text-gray-300">Your AI Music Manager</p>
+              <p className="text-lg text-gray-300 font-medium">Your AI Music Manager</p>
             </div>
           </div>
           <Link
             href="/chat"
-            className="py-2 px-6 rounded-full text-sm font-medium text-white bg-gradient-to-r from-gray-200 to-gray-100 shadow-md hover:shadow-lg transition-all duration-300"
+            className="py-3 px-8 rounded-full text-lg font-semibold text-gray-900 bg-gradient-to-r from-gray-200 to-white shadow-lg hover:shadow-xl transition-all duration-300"
             style={{
-              boxShadow: "0 0 10px 4px rgba(255, 255, 255, 0.5)",
+              boxShadow: "0 0 15px 5px rgba(255, 255, 255, 0.7)",
             }}
           >
             Chat with Your AI Manager
@@ -47,13 +44,13 @@ export default function Home() {
         {/* Main Content */}
         <main className="flex-grow flex flex-col items-center justify-center p-8 text-center relative z-10">
           {/* Personalized Message */}
-          <h2 className="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-gray-300 via-gray-100 to-white">
+          <h2 className="text-4xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-gray-300 via-gray-100 to-white">
             {personalizedMessage}
           </h2>
-          <h2 className="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-white to-gray-400">
+          <h2 className="text-6xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-gray-200 via-white to-gray-400">
             Empower Your Music Career
           </h2>
-          <p className="text-xl mb-8 max-w-3xl text-gray-300 leading-relaxed">
+          <p className="text-2xl mb-10 max-w-3xl text-gray-300 leading-relaxed font-medium">
             Methix is your personal AI manager, created to support and empower
             independent artists like you. Navigate the music industry with
             tailored guidance, collaboration opportunities, and tools designed to
@@ -61,7 +58,7 @@ export default function Home() {
           </p>
 
           {/* Feature Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
             <FeatureCard
               title="AI-Driven Career Advice"
               description="Get personalized career guidance tailored to your unique journey."
@@ -91,9 +88,9 @@ export default function Home() {
           {/* Call to Action */}
           <Link
             href="/signup"
-            className="bg-gradient-to-r from-gray-200 to-gray-100 text-gray-900 font-bold py-3 px-6 rounded-full text-lg transition duration-300 hover:from-gray-300 hover:to-white hover:shadow-lg shadow-md"
+            className="bg-gradient-to-r from-gray-200 to-gray-100 text-gray-900 font-bold py-4 px-8 rounded-full text-xl transition duration-300 hover:from-gray-300 hover:to-white hover:shadow-lg shadow-md"
             style={{
-              boxShadow: "0 0 15px 5px rgba(255, 255, 255, 0.7)",
+              boxShadow: "0 0 20px 7px rgba(255, 255, 255, 0.7)",
             }}
           >
             Start Your Journey
@@ -102,7 +99,7 @@ export default function Home() {
 
         {/* Footer */}
         <footer className="p-6 text-center bg-gray-800 text-gray-400">
-          <p>&copy; 2024 Methix. Empowering independent artists.</p>
+          <p className="text-lg">&copy; 2024 Methix. Empowering independent artists.</p>
         </footer>
       </div>
     </div>
@@ -119,13 +116,13 @@ interface FeatureCardProps {
 function FeatureCard({ title, description, icon, href }: FeatureCardProps) {
   return (
     <Link href={href} className="block">
-      <div className="p-6 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col justify-between bg-gray-100 text-gray-900">
+      <div className="p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col justify-between bg-gray-100 text-gray-900">
         <div>
-          <div className="text-5xl mb-4">{icon}</div>
-          <h3 className="text-xl font-bold mb-2">{title}</h3>
-          <p className="text-gray-700 leading-relaxed">{description}</p>
+          <div className="text-6xl mb-6">{icon}</div>
+          <h3 className="text-2xl font-bold mb-3">{title}</h3>
+          <p className="text-lg text-gray-700 leading-relaxed font-medium">{description}</p>
         </div>
-        <div className="mt-4 text-gray-700 font-semibold hover:text-black transition duration-300">
+        <div className="mt-6 text-lg text-gray-700 font-semibold hover:text-black transition duration-300">
           Learn More →
         </div>
       </div>

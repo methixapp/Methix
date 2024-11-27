@@ -241,11 +241,11 @@ const Sources: React.FC = () => {
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold mb-3 tracking-tight">Welcome to Your Personalized Resource Home </h1>
-      <p className="text-gray-600 text-lg mb-8 max-w-2xl">Discover handpicked tools and tips to help you grow and thrive in your music career.</p>
+      <h1 className="text-5xl font-bold mb-3 tracking-tight">Welcome to Your Personalized Resource Home </h1>
+      <p className="text-gray-600 text-lg mb-8 max-w-4xl">Discover handpicked tools and tips to help you grow and thrive in your music career.</p>
       
       {/* Category Overview Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-5">
         {CATEGORIES.map(category => (
           <button
             key={category.name}
@@ -255,7 +255,7 @@ const Sources: React.FC = () => {
                 ? 'bg-gray-900 text-white' 
                 : 'bg-gray-50 text-gray-900 hover:bg-gray-100'}`}
           >
-            <h3 className="text-lg font-semibold mb-2">{category.name}</h3>
+            <h3 className="text-2xl font-semibold mb-4">{category.name}</h3>
             <p className={`text-sm ${selectedCategory === category.name ? 'text-gray-300' : 'text-gray-600'}`}>
               {category.description}
             </p>
@@ -264,7 +264,7 @@ const Sources: React.FC = () => {
       </div>
 
       {/* Filter Bar */}
-      <div className="flex flex-wrap gap-3 mb-8">
+      <div className="flex flex-wrap gap-3 mb-10">
         <button
           onClick={() => setSelectedCategory(null)}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
