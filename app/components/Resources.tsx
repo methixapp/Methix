@@ -241,8 +241,8 @@ const Sources: React.FC = () => {
 
   return (
     <div className="p-8 max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold mb-3 tracking-tight">Music Industry Resources</h1>
-      <p className="text-gray-600 text-lg mb-8 max-w-2xl">Explore these valuable resources to enhance your music career.</p>
+      <h1 className="text-4xl font-bold mb-3 tracking-tight">Welcome to Your Personalized Resource Home </h1>
+      <p className="text-gray-600 text-lg mb-8 max-w-2xl">Discover handpicked tools and tips to help you grow and thrive in your music career.</p>
       
       {/* Category Overview Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">

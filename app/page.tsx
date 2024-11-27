@@ -21,8 +21,7 @@ export default function Home() {
       <main className="flex-grow flex flex-col items-center justify-center p-8 text-center">
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Empower Your Music Career</h2>
         <p className="text-xl mb-8 max-w-2xl text-gray-700">
-          Methix is an AI-driven platform designed to serve as a virtual manager for independent artists. 
-          Navigate the music industry with personalized guidance and powerful tools.
+          Methix is your personal AI manager, created to support and empower independent artists like you. We're here to help you navigate the music industry with guidance and tools designed just for your journey
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
