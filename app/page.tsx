@@ -4,24 +4,32 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100 text-gray-900">
-      <header className="p-6 flex items-center bg-white shadow-md">
-        <Image
-          src="/ajamlogo.jpg"
-          alt="Methix Logo"
-          width={60}
-          height={60}
-          className="mr-4"
-        />
-        <div>
-          <h1 className="text-3xl font-bold text-gray-800">Methix</h1>
-          <p className="text-lg text-gray-600">Your AI Music Manager</p>
+      <header className="p-6 flex items-center justify-between bg-white shadow-md">
+        <div className="flex items-center">
+          <Image
+            src="/ajamlogo.jpg"
+            alt="Methix Logo"
+            width={60}
+            height={60}
+            className="mr-4"
+          />
+          <div>
+            <h1 className="text-3xl font-bold text-gray-800">Methix</h1>
+            <p className="text-lg text-gray-600">Your AI Music Manager</p>
+          </div>
         </div>
+        <Link
+          href="/chat"
+          className="bg-black text-white py-2 px-4 rounded-full text-sm font-medium shadow hover:bg-gray-800 transition duration-300"
+        >
+          Chat with Your AI Manager
+        </Link>
       </header>
 
       <main className="flex-grow flex flex-col items-center justify-center p-8 text-center">
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Empower Your Music Career</h2>
         <p className="text-xl mb-8 max-w-2xl text-gray-700">
-          Methix is your personal AI manager, created to support and empower independent artists like you. We're here to help you navigate the music industry with guidance and tools designed just for your journey
+          Methix is your personal AI manager, created to support and empower independent artists like you. We're here to help you navigate the music industry with guidance and tools designed just for your journey.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
