@@ -1,20 +1,31 @@
+'use client';
+
 import Image from 'next/image';
-import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const [isAnimating, setIsAnimating] = useState(false);
+  const router = useRouter();
+
+  const handleSignInClick = () => {
+    setIsAnimating(true); // Trigger animation
+    setTimeout(() => {
+      router.push('/signin'); // Navigate to sign-in after animation
+    }, 1500); // Match duration of the animation
+  };
+
   return (
     <div className="relative min-h-screen bg-white text-black font-sans -mt-8">
       {/* Background Vinyl Image */}
-      <div className="absolute inset-0 bg-[url('/vinyl.png')] bg-cover bg-center opacity-40 z-0" style={{ height: "105%" }}></div>
+      <div
+        className="absolute inset-0 bg-[url('/vinyl.png')] bg-cover bg-center opacity-40 z-0"
+        style={{ height: '105%' }}
+      ></div>
 
       {/* Header with A Jam Logo */}
       <div className="absolute top-12 left-10 z-10">
-        <Image
-          src="/AJam.png"
-          alt="A Jam Logo"
-          width={200}
-          height={60}
-        />
+        <Image src="/AJam.png" alt="A Jam Logo" width={200} height={60} />
       </div>
 
       {/* Main Content */}
@@ -27,7 +38,7 @@ export default function Home() {
           height={400}
           className="mb-0"
         />
-        {/* Subheader - elegant font directly below Methix logo */}
+        {/* Subheader */}
         <p className="text-6xl font-light -mt-28 mb-20 tracking-wide">
           Your Virtual Music Manager, Reimagined
         </p>
@@ -36,14 +47,29 @@ export default function Home() {
           <h1 className="text-3xl font-light mb-16 tracking-tight leading-tight max-w-5xl italic">
             Your Guide to the Inside Starts Now. Unlock your Path.
           </h1>
-          <Link
-            href="/signin"
+          <button
+            onClick={handleSignInClick}
             className="bg-black text-white py-5 px-14 rounded-full text-3xl font-medium bg-opacity-100 hover:bg-opacity-60 transition duration-300"
           >
             Sign In
-          </Link>
+          </button>
         </div>
       </main>
+
+      {/* Sound Waves Animation */}
+      {isAnimating && (
+        <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+          <div className="relative flex space-x-3">
+            {[...Array(5)].map((_, i) => (
+              <div
+                key={i}
+                className="h-24 w-2 bg-black rounded-full animate-wave"
+                style={{ animationDelay: `${i * 0.2}s` }}
+              ></div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

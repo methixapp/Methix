@@ -43,10 +43,17 @@ export default function SignIn() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 text-gray-900">
-      <div className="p-10 max-w-md w-full bg-white shadow-md rounded-lg">
+      <div className="p-6 max-w-md w-full bg-white shadow-md rounded-lg">
         <div className="text-center mb-6">
-          <h1 className="text-4xl font-extrabold text-black tracking-wide">METHIX</h1>
-          <p className="mt-4 text-gray-600">Sign in to your personalized music manager.</p>
+          <h1
+            className="text-4xl font-extrabold tracking-wide text-black"
+            style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+            }}
+          >
+            METHIX
+          </h1>
+          <p className="mt-2 text-gray-600">Sign in to your personalized music manager.</p>
         </div>
         {error && (
           <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
