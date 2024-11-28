@@ -14,3 +14,14 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+module.exports = {
+  env: {
+    CLIENT_ID: process.env.CLIENT_ID,
+    CLIENT_SECRET: process.env.CLIENT_SECRET,
+    CLOUD_INSTANCE: process.env.CLOUD_INSTANCE,
+    TENANT_ID: process.env.TENANT_ID,
+    REDIRECT_URI: process.env.REDIRECT_URI,
+    POST_LOGOUT_REDIRECT_URI: process.env.POST_LOGOUT_REDIRECT_URI,
+  },
+};

@@ -3,17 +3,21 @@ import { ConfidentialClientApplication } from '@azure/msal-node';
 import { msalConfig, REDIRECT_URI } from '../../../auth/msalConfig';
 
 export async function POST(request: Request) {
-  const pca = new ConfidentialClientApplication(msalConfig);
-  const body = await request.json();
-  const code = body.code;
-
-  const tokenRequest = {
-    code,
-    scopes: ['user.read'],
-    redirectUri: REDIRECT_URI,
-  };
-
   try {
+    // Initialize MSAL Confidential Client Application
+    const pca = new ConfidentialClientApplication(msalConfig);
+
+    const body = await request.json();
+    const code = body.code;
+
+    // Prepare token request
+    const tokenRequest = {
+      code,
+      scopes: ['user.read'],
+      redirectUri: REDIRECT_URI,
+    };
+
+    // Acquire token by code
     const response = await pca.acquireTokenByCode(tokenRequest);
 
     return NextResponse.json({

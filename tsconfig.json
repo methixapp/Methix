@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext", // Modern JavaScript features
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -16,13 +16,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve", // Modern JSX runtime for React 17+
+    "jsx": "preserve",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
     "paths": {
       "@/*": [
         "./*"
