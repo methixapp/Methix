@@ -2,6 +2,25 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+.ripple {
+  width: 20px;
+  height: 20px;
+  background: black;
+  border-radius: 50%;
+  animation: ripple-effect 0.8s ease-out forwards;
+}
+
+@keyframes ripple-effect {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(100);
+    opacity: 0;
+  }
+}
+
 @keyframes music-wave {
   0%,
   100% {

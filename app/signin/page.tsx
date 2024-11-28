@@ -9,7 +9,15 @@ export default function SignIn() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const router = useRouter();
+
+  const handleChatTransition = () => {
+    setIsTransitioning(true); // Trigger ripple animation
+    setTimeout(() => {
+      router.push('/chat'); // Navigate to chat after animation
+    }, 800); // Match the animation duration
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +50,14 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 text-gray-900">
+    <div className="relative flex items-center justify-center min-h-screen bg-gray-100 text-gray-900">
+      {/* Ripple Animation */}
+      {isTransitioning && (
+        <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
+          <div className="ripple"></div>
+        </div>
+      )}
+
       <div className="p-6 max-w-md w-full bg-white shadow-md rounded-lg">
         <div className="text-center mb-6">
           <h1
@@ -104,6 +119,15 @@ export default function SignIn() {
               Create an account
             </Link>
           </p>
+          <div className="mt-4">
+            <p className="text-sm text-gray-600">Or</p>
+            <button
+              onClick={handleChatTransition}
+              className="mt-2 text-gray-800 hover:text-gray-600 underline"
+            >
+              Go straight to Chat
+            </button>
+          </div>
         </div>
       </div>
     </div>
