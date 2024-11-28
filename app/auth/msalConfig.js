@@ -1,4 +1,5 @@
-import msal from '@azure/msal-node';
+import { LogLevel, ConfidentialClientApplication } from '@azure/msal-node';
+
 
 // Ensure required environment variables are present
 if (!process.env.CLIENT_ID || !process.env.CLIENT_SECRET || !process.env.CLOUD_INSTANCE || !process.env.TENANT_ID) {
