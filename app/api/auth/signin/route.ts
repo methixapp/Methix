@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+/*import { NextResponse } from 'next/server';
 
 export async function GET() {
   const tenantName = '<y3e43f4cf-a559-415e-8bf6-97011f08303c>'; // e.g., mytenant
@@ -11,4 +11,21 @@ export async function GET() {
   )}&scope=openid`;
 
   return NextResponse.redirect(authUrl);
+}
+*/
+
+import { NextResponse } from "next/server";
+
+export async function GET() {
+  return NextResponse.json({
+    success: true,
+    message: "Mock sign-in endpoint. Azure integration disabled.",
+  });
+}
+
+export async function POST(request: Request) {
+  return NextResponse.json({
+    success: true,
+    message: "Mock POST for sign-in. Azure integration disabled.",
+  });
 }
