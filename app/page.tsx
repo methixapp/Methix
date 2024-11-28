@@ -12,7 +12,7 @@ export default function Home() {
     setIsAnimating(true); // Trigger animation
     setTimeout(() => {
       router.push('/signin'); // Navigate to sign-in after animation
-    }, 1500); // Match duration of the animation
+    }, 2000); // Animation duration is 2 seconds
   };
 
   return (
@@ -56,15 +56,19 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Sound Waves Animation */}
+      {/* Black/White/Gray Sound Waves Animation */}
       {isAnimating && (
         <div className="fixed inset-0 flex items-center justify-center bg-white z-50">
-          <div className="relative flex space-x-3">
-            {[...Array(5)].map((_, i) => (
+          <div className="relative flex space-x-4">
+            {[...Array(7)].map((_, i) => (
               <div
                 key={i}
-                className="h-24 w-2 bg-black rounded-full animate-wave"
-                style={{ animationDelay: `${i * 0.2}s` }}
+                className="h-48 w-3 rounded-full bg-gray-800 animate-music-wave"
+                style={{
+                  animationDelay: `${i * 0.2}s`,
+                  animationDuration: '2s',
+                  backgroundColor: i % 2 === 0 ? '#000' : '#6b7280', // Alternating black and gray
+                }}
               ></div>
             ))}
           </div>

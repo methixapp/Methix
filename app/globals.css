@@ -2,20 +2,22 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@keyframes wave {
-  0%, 100% {
+@keyframes music-wave {
+  0%,
+  100% {
     transform: scaleY(1);
     opacity: 0.2;
   }
   50% {
-    transform: scaleY(2);
+    transform: scaleY(3);
     opacity: 1;
   }
 }
 
-.animate-wave {
-  animation: wave 1.5s ease-in-out infinite;
+.animate-music-wave {
+  animation: music-wave 2s cubic-bezier(0.42, 0, 0.58, 1) infinite;
 }
+
 
 
 :root {
