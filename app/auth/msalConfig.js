@@ -1,4 +1,4 @@
-import { LogLevel } from '@azure/msal-node'; // Import only LogLevel explicitly
+/*import { LogLevel } from '@azure/msal-node'; // Import only LogLevel explicitly
 
 // Ensure required environment variables are present
 if (!process.env.CLIENT_ID || !process.env.CLIENT_SECRET || !process.env.CLOUD_INSTANCE || !process.env.TENANT_ID) {
@@ -28,3 +28,4 @@ const POST_LOGOUT_REDIRECT_URI = process.env.POST_LOGOUT_REDIRECT_URI || '';
 const GRAPH_ME_ENDPOINT = `${process.env.GRAPH_API_ENDPOINT || 'https://graph.microsoft.com/'}v1.0/me`;
 
 export { msalConfig, REDIRECT_URI, POST_LOGOUT_REDIRECT_URI, GRAPH_ME_ENDPOINT };
+*/ 

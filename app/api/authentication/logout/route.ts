@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+/*import { NextResponse } from 'next/server';
 
 export async function GET() {
   const cloudInstance = process.env.CLOUD_INSTANCE;
@@ -17,3 +17,6 @@ export async function GET() {
   const logoutUrl = `${cloudInstance}${tenantId}/oauth2/v2.0/logout?post_logout_redirect_uri=${postLogoutRedirectUri}`;
   return NextResponse.redirect(logoutUrl);
 }
+*/
+
+export {};

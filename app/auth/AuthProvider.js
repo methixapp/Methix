@@ -18,7 +18,7 @@ class AuthProvider {
              * MSAL Node library allows you to pass your custom state as state parameter in the Request object.
              * The state parameter can also be used to encode information of the app's state before redirect.
              * You can pass the user's state in the app, such as the page or view they were on, as input to this parameter.
-             */
+             */ 
             const state = this.cryptoProvider.base64Encode(
                 JSON.stringify({
                     successRedirect: options.successRedirect || '/',

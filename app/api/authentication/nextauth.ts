@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+/* import NextAuth from 'next-auth';
 import AzureADB2CProvider from 'next-auth/providers/azure-ad-b2c';
 
 // Ensure environment variables are defined
@@ -22,3 +22,4 @@ export default NextAuth({
   ],
   secret, // Set a strong secret
 });
+*/

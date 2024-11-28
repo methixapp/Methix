@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+/*import { NextResponse } from 'next/server';
 import { ConfidentialClientApplication } from '@azure/msal-node';
 import { msalConfig, REDIRECT_URI } from '../../../auth/msalConfig';
 
@@ -18,3 +18,6 @@ export async function GET() {
     return NextResponse.json({ success: false, error: 'Error redirecting to Azure AD' });
   }
 }
+*/
+
+export {};
