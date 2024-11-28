@@ -26,7 +26,6 @@ export default function SignIn() {
       const data = await response.json();
 
       if (data.success) {
-        // Redirect to dashboard or home page after successful sign-in
         router.push('/dashboard');
       } else {
         setError(data.message || 'Sign in failed. Please try again.');
@@ -43,41 +42,48 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="p-8 max-w-md w-full bg-white shadow-lg rounded-lg">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Sign In to Methix</h1>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 text-gray-900">
+      <div className="p-10 max-w-md w-full bg-white shadow-md rounded-lg">
+        <div className="text-center mb-6">
+          <h1 className="text-4xl font-extrabold text-black tracking-wide">METHIX</h1>
+          <p className="mt-4 text-gray-600">Sign in to your personalized music manager.</p>
+        </div>
         {error && (
-          <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+          <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
             {error}
           </div>
         )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
-            <input 
-              type="email" 
-              id="email" 
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-              required 
+              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500"
+              required
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-            <input 
-              type="password" 
-              id="password" 
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-              required 
+              className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500"
+              required
             />
           </div>
           <div>
-            <button 
-              type="submit" 
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            <button
+              type="submit"
+              className="w-full py-3 px-4 rounded-md text-white bg-gray-800 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
               disabled={isLoading}
             >
               {isLoading ? 'Signing in...' : 'Sign In'}
@@ -87,7 +93,7 @@ export default function SignIn() {
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             Don&apos;t have an account?{' '}
-            <Link href="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
+            <Link href="/signup" className="font-medium text-gray-800 hover:text-gray-600">
               Create an account
             </Link>
           </p>

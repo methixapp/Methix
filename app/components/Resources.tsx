@@ -316,8 +316,3 @@ const Sources: React.FC = () => {
           </div>
         ))}
       </div>
-    </div>
-  )
-}
-
-export default Sources

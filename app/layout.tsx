@@ -21,13 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} bg-background text-text`}>
         <div className="flex h-screen">
-          {/* Sidebar */}
-          <Sidebar />
 
           {/* Main Content */}
           <div className="flex flex-col flex-grow relative">
-            {/* TopBar */}
-            <TopBar />
 
             {/* Page Content */}
             <main className="flex-grow overflow-auto">
