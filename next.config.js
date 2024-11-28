@@ -4,10 +4,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**', // Replace '**' with a specific domain, e.g., 'example.com' for stricter security
-        port: '', // Leave empty unless you need to allow specific ports
-        pathname: '**', // Adjust if you want to allow specific paths, e.g., '/images/**'
+        hostname: 'https://methix112524.azurewebsites.net/', // Replace with your Azure domain
+        port: '', // Keep this empty unless Azure uses a non-standard port
+        pathname: '/path-to-images/**', // Replace with the actual path if specific, or keep '**' for all paths
       },
+
     ],
   },
 };
