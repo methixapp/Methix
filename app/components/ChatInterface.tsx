@@ -98,7 +98,7 @@ export default function ChatInterface() {
       {/* Welcome Header */}
       <header className="text-center py-6">
         <h1
-          className="text-5xl font-bold tracking-wide text-black"
+          className="text-5xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
           style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
           Welcome to Methix
@@ -109,7 +109,7 @@ export default function ChatInterface() {
       </header>
 
       {/* Chat Content */}
-      <main className="flex-1 flex flex-col justify-between px-6 py-4">
+      <main className="flex-1 flex flex-col px-6 py-4">
         {/* Chat Messages */}
         <div className="overflow-y-auto flex-1 bg-gray-100 rounded-lg shadow-inner p-6 space-y-4">
           {messages.map((msg, index) => (
@@ -129,22 +129,24 @@ export default function ChatInterface() {
         </div>
 
         {/* Suggested Prompts */}
-        <div className="bg-gray-50 mt-4 p-4 rounded-md shadow-md">
-          <h2 className="text-lg font-semibold mb-2 text-gray-800">
-            Try asking...
-          </h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {suggestedPrompts.map((prompt, index) => (
-              <li
-                key={index}
-                className="p-4 flex items-center gap-4 bg-gray-200 hover:bg-gray-300 rounded-lg shadow cursor-pointer transition"
-                onClick={() => setInput(prompt)}
-              >
-                <FiMusic className="text-gray-600 text-2xl" />
-                <span className="text-gray-800 font-medium">{prompt}</span>
-              </li>
-            ))}
-          </ul>
+        <div className="flex justify-center mt-8">
+          <div className="bg-gray-50 p-6 rounded-md shadow-md w-full max-w-2xl">
+            <h2 className="text-lg font-semibold mb-4 text-gray-800 text-center">
+              Try asking...
+            </h2>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {suggestedPrompts.map((prompt, index) => (
+                <li
+                  key={index}
+                  className="p-4 flex items-center gap-4 bg-gray-200 hover:bg-gray-300 rounded-lg shadow cursor-pointer transition"
+                  onClick={() => setInput(prompt)}
+                >
+                  <FiMusic className="text-gray-600 text-2xl" />
+                  <span className="text-gray-800 font-medium">{prompt}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* Input Field */}
