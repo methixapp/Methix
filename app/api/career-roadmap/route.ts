@@ -1,71 +1,72 @@
-/* import { NextResponse } from 'next/server';
-import { db } from '@/app/firebaseConfig';
-import { collection, addDoc, getDocs, updateDoc, doc, serverTimestamp } from 'firebase/firestore';
-
-interface GoalData {
-  title: string;
-  progress: number;
-  createdAt: Date;
-}
-
-export const dynamic = 'force-dynamic';
-
-export async function GET() {
-  try {
-    console.log('Fetching goals...');
-    const goalsSnapshot = await getDocs(collection(db, 'goals'));
-    const goals = goalsSnapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
-    console.log('Fetched goals:', goals);
-    return NextResponse.json({ goals });
-  } catch (error) {
-    console.error('Error fetching goals:', error);
-    return NextResponse.json({ error: 'Failed to fetch goals' }, { status: 500 });
-  }
-}
+import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const { title } = await request.json();
-    if (!title) {
-      return NextResponse.json({ error: 'Title is required' }, { status: 400 });
-    }
+    const { userMetrics, ambitions } = await request.json(); // Expect metrics and ambitions in the request body.
 
-    const newGoal: Omit<GoalData, 'createdAt'> = {
-      title,
-      progress: 0,
-    };
+    const baseUrl = process.env.AZURE_OPENAI_ENDPOINT?.replace(/\/$/, '');
+    const apiUrl = `${baseUrl}/openai/deployments/${process.env.AZURE_OPENAI_CHAT_DEPLOYMENT}/chat/completions?api-version=2024-02-15-preview`;
 
-    const docRef = await addDoc(collection(db, 'goals'), {
-      ...newGoal,
-      createdAt: serverTimestamp()
+    // Construct the prompt for the AI model
+    const prompt = `
+      Based on the following user metrics and career ambitions, generate a personalized career roadmap for a music artist.
+      Metrics: ${JSON.stringify(userMetrics)}.
+      Ambitions: ${ambitions}.
+      Provide 3-5 actionable steps with a title, a short description, and an estimated progress percentage.
+      Focus areas include fanbase growth, content creation, networking, and release planning.
+    `;
+
+    // Call Azure OpenAI API
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': process.env.AZURE_OPENAI_API_KEY!,
+      },
+      body: JSON.stringify({
+        messages: [
+          { role: 'system', content: 'You are a career planner for music artists.' },
+          { role: 'user', content: prompt },
+        ],
+        max_tokens: 800,
+        temperature: 0.7,
+        top_p: 0.95,
+      }),
     });
 
-    return NextResponse.json({ id: docRef.id, message: 'Goal added successfully' });
-  } catch (error) {
-    console.error('Error adding goal:', error);
-    return NextResponse.json({ error: 'Failed to add goal' }, { status: 500 });
-  }
-}
-
-export async function PUT(request: Request) {
-  try {
-    const { id, progress } = await request.json();
-    if (!id || progress === undefined) {
-      return NextResponse.json({ error: 'ID and progress are required' }, { status: 400 });
+    if (!response.ok) {
+      const error = await response.text();
+      console.error('Azure OpenAI Error:', error);
+      throw new Error(`Azure OpenAI API error: ${error}`);
     }
-    
-    const goalRef = doc(db, 'goals', id);
-    await updateDoc(goalRef, { progress });
-    
-    return NextResponse.json({ message: 'Goal progress updated successfully' });
+
+    const data = await response.json();
+
+    // Parse the AI-generated content into actionable steps
+    const roadmapSteps = data.choices[0]?.message?.content
+      ?.split('\n') // Split into lines
+      .filter((line: string) => line.trim()) // Remove blank lines
+      .map((line: string) => {
+        const [title, description] = line.split(':'); // Split into title and description
+        return {
+          title: title?.trim(),
+          description: description?.trim(),
+          progress: Math.floor(Math.random() * 20), // Add random progress (0-20%) as a placeholder
+        };
+      });
+
+    // Return the roadmap steps in JSON format
+    return NextResponse.json({ steps: roadmapSteps });
   } catch (error) {
-    console.error('Error updating goal progress:', error);
-    return NextResponse.json({ error: 'Failed to update goal progress' }, { status: 500 });
+    const typedError = error instanceof Error ? error : new Error(String(error));
+
+    console.error('API Error:', error);
+    return NextResponse.json(
+      {
+        error: 'Error generating career roadmap',
+        details: typedError.message,
+      },
+      { status: 500 }
+    );
   }
 }
-
-*/
-export {};

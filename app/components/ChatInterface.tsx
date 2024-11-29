@@ -127,7 +127,7 @@ export default function ChatInterface() {
       {/* Welcome Header */}
       <header className="text-center py-6">
         <h1
-          className="text-4xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-teal-500 to-blue-600"
+          className="text-4xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-blue-500 to-green-500"
           style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
           {welcomeMessage}
