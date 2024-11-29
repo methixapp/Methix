@@ -13,6 +13,7 @@ export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>([]);
+  const [welcomeMessage, setWelcomeMessage] = useState(''); // Dynamic welcome message
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -45,6 +46,34 @@ export default function ChatInterface() {
 
     fetchPrompts();
   }, []);
+
+  // Fetch dynamic welcome message
+  useEffect(() => {
+    const fetchWelcomeMessage = async () => {
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'welcomeMessage',
+            history: messages, // Include history to generate a contextual welcome
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch welcome message');
+        }
+
+        const data = await response.json();
+        setWelcomeMessage(data.content || "Hi, User. Let's get started!");
+      } catch (error) {
+        console.error('Error fetching welcome message:', error);
+        setWelcomeMessage("Hi! Let's make music magic together.");
+      }
+    };
+
+    fetchWelcomeMessage();
+  }, [messages]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -98,14 +127,11 @@ export default function ChatInterface() {
       {/* Welcome Header */}
       <header className="text-center py-6">
         <h1
-          className="text-5xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"
+          className="text-4xl font-bold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-teal-500 to-blue-600"
           style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
-          Welcome to Methix
+          {welcomeMessage}
         </h1>
-        <p className="mt-2 text-gray-600 text-lg">
-          Your personalized music assistant
-        </p>
       </header>
 
       {/* Chat Content */}
