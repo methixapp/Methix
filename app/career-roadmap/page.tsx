@@ -61,12 +61,12 @@ export default function Roadmap() {
         {/* Header Section */}
         <header className="text-center py-10 bg-gradient-to-r from-purple-500 via-pink-600 to-red-400 text-white shadow-lg">
           <h1
-            className="text-5xl font-extrabold tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-200 to-purple-300"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", textShadow: '2px 2px rgba(0,0,0,0.2)' }}
+            className="text-5xl font-extrabold tracking-wide"
+            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
             Your Visual Career Roadmap
           </h1>
-          <p className="mt-4 text-lg font-medium">
+          <p className="mt-4 text-lg font-medium text-white">
             Transform your ambitions into actionable milestones!
           </p>
         </header>

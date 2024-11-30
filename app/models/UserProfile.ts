@@ -6,5 +6,9 @@ export interface UserProfile {
   discordServerId?: string;
   bio?: string;
   profileImage?: string;
+  socialMediaLinks?: {
+    [platform: string]: string;
+  };
+  uploadedMusic?: string[];
+  favorites?: string[]; // List of favorite artist IDs
 }
-

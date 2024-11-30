@@ -13,10 +13,12 @@ import {
   FaFolderOpen,
   FaTools,
   FaUserCircle,
+  FaHeart,
 } from 'react-icons/fa';
 
 const Sidebar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isRolodexOpen, setIsRolodexOpen] = useState(false); // Toggle for Rolodex subtabs
   const pathname = usePathname();
 
   const toggleSidebar = () => setIsOpen(!isOpen);
@@ -25,7 +27,15 @@ const Sidebar: React.FC = () => {
     { href: '/chat', label: 'Manager', icon: <FaUser /> }, // Manager icon
     { href: '/career-roadmap', label: 'Roadmap', icon: <FaMapSigns /> }, // Roadmap icon
     { href: '/resources', label: 'Resources', icon: <FaFolderOpen /> }, // Resources icon
-    { href: '/connect-with-artists', label: 'Rolodex', icon: <FaUserFriends /> }, // Rolodex icon
+    {
+      href: '/connect-with-artists',
+      label: 'Rolodex',
+      icon: <FaUserFriends />,
+      subItems: [
+        { href: '/connect-with-artists', label: 'All Artists' },
+        { href: '/favorites', label: 'Favorites' },
+      ],
+    }, // Rolodex with subtabs
   ];
 
   return (
@@ -53,19 +63,53 @@ const Sidebar: React.FC = () => {
         {/* Navigation Items */}
         <nav className="mt-4">
           <ul>
-            {navItems.map((item) => (
-              <li key={item.href} className="mb-2">
-                <Link
-                  href={item.href}
-                  className={`flex items-center gap-4 p-4 text-lg font-medium rounded-lg ${
-                    pathname === item.href
-                      ? 'bg-gray-100 shadow-inner'
-                      : 'hover:bg-gray-200'
-                  }`}
-                >
-                  {item.icon}
-                  {item.label}
-                </Link>
+            {navItems.map((item, index) => (
+              <li key={index} className="mb-2">
+                {item.subItems ? (
+                  <div>
+                    <button
+                      onClick={() => setIsRolodexOpen(!isRolodexOpen)}
+                      className={`flex items-center gap-4 p-4 text-lg font-medium rounded-lg ${
+                        pathname.startsWith(item.href)
+                          ? 'bg-gray-100 shadow-inner'
+                          : 'hover:bg-gray-200'
+                      }`}
+                    >
+                      {item.icon}
+                      {item.label}
+                    </button>
+                    {isRolodexOpen && (
+                      <ul className="pl-8">
+                        {item.subItems.map((subItem, subIndex) => (
+                          <li key={subIndex} className="mb-2">
+                            <Link
+                              href={subItem.href}
+                              className={`block p-2 text-sm rounded-lg ${
+                                pathname === subItem.href
+                                  ? 'bg-gray-100'
+                                  : 'hover:bg-gray-200'
+                              }`}
+                            >
+                              {subItem.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className={`flex items-center gap-4 p-4 text-lg font-medium rounded-lg ${
+                      pathname === item.href
+                        ? 'bg-gray-100 shadow-inner'
+                        : 'hover:bg-gray-200'
+                    }`}
+                  >
+                    {item.icon}
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

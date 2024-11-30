@@ -5,6 +5,13 @@
     "genre": "test",
     "discordUsername": "test",
     "bio": "test",
-    "discordServerId": "test"
+    "discordServerId": "test",
+    "socialMediaLinks": {
+      "Instagram": "https://www.instagram.com/carysgarvey/"
+    },
+    "uploadedMusic": [
+      "/uploads/music/1732926231131-Can_You.mp3",
+      "/uploads/music/1732926231499-Can_You.mp3"
+    ]
   }
 ]
