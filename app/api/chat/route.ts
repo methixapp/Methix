@@ -25,10 +25,10 @@ export async function POST(request: Request) {
             {
               role: 'system',
               content:
-                'You are a creative assistant. Generate three unique prompts about the music industry, no longer than 10-15 words. Each prompt should include an actionable or engaging suggestion. Prepend each prompt with a music emoji (e.g., 🎵). Avoid unnecessary formatting like ** or --.',
+                'You are a creative assistant. Generate three unique prompts about the music industry, no longer than 10-15 words. Tokens MUST be less than 70. Each prompt should include an actionable or engaging suggestion. Prepend each prompt with a music emoji (either a guitar, piano, microphone, or musical score). Each prompt has a different music emoji. Avoid unnecessary formatting like ** or --.',
             },
           ],
-          max_tokens: 50, // Limit tokens to ensure concise responses
+          max_tokens: 70, // Limit tokens to ensure concise responses
           temperature: 0.8,
           top_p: 0.9,
         }),

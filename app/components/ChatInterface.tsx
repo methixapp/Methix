@@ -13,7 +13,7 @@ export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>([]);
-  const [welcomeMessage, setWelcomeMessage] = useState("Hi! Let's make music magic together."); // Default welcome message
+  const [welcomeMessage, setWelcomeMessage] = useState("Hi there!"); // Default welcome message
   const [theme, setTheme] = useState("default"); // Theme selection
   const [showThemeModal, setShowThemeModal] = useState(false); // Modal visibility
 
@@ -34,6 +34,7 @@ export default function ChatInterface() {
     scrollToBottom();
   }, [messages]);
 
+  // Fetch suggested prompts
   useEffect(() => {
     const fetchPrompts = async () => {
       try {
@@ -55,6 +56,31 @@ export default function ChatInterface() {
     };
 
     fetchPrompts();
+  }, []);
+
+  // Fetch welcome message
+  useEffect(() => {
+    const fetchWelcomeMessage = async () => {
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type: 'welcomeMessage' }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch welcome message');
+        }
+
+        const data = await response.json();
+        setWelcomeMessage(data.content || "Hi there! Welcome!");
+      } catch (error) {
+        console.error('Error fetching welcome message:', error);
+        setWelcomeMessage("Hi there! Welcome!");
+      }
+    };
+
+    fetchWelcomeMessage();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -117,14 +143,15 @@ export default function ChatInterface() {
       {/* Welcome Header */}
       <header className="flex justify-between items-center px-6 py-4">
         <h1
-          className={`text-2xl font-semibold tracking-wide ${
+          className={`text-4xl font-semibold tracking-wide ${
             theme === "stage" ? "text-white" : "text-black"
           }`}
           style={{
             fontFamily: "'Bebas Neue', sans-serif",
             wordWrap: "break-word",
             lineHeight: "1.4em",
-            ...(theme === "acoustic" && { textAlign: "left", marginLeft: "50px" }),
+            marginLeft: "50px", // Slightly move the text to the right
+            ...(theme === "acoustic" && { textAlign: "left", marginLeft: "50px" }), // Specific style for acoustic theme
           }}
         >
           {welcomeMessage}
@@ -139,7 +166,6 @@ export default function ChatInterface() {
 
       {/* Chat Content */}
       <main className="flex-1 flex flex-col px-6 py-4">
-        {/* Chat Messages */}
         <div
           className="overflow-y-auto flex-1 rounded-lg shadow-inner p-6 space-y-4"
           style={{
@@ -166,33 +192,35 @@ export default function ChatInterface() {
         </div>
 
         {/* Suggested Prompts */}
-        <div
-          className="flex justify-center mt-8 rounded-md shadow-md p-6"
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.8)", // Slight transparency
-          }}
-        >
-          <div className="w-full max-w-2xl">
-            <h2 className="text-lg font-semibold mb-4 text-gray-800 text-center">
-              Try asking...
-            </h2>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {suggestedPrompts.map((prompt, index) => (
-                <li
-                  key={index}
-                  className="p-4 flex items-center gap-4 bg-gray-200 hover:bg-gray-300 rounded-lg shadow cursor-pointer transition"
-                  style={{
-                    backgroundColor: "rgba(200, 200, 200, 0.8)", // Slight transparency
-                  }}
-                  onClick={() => setInput(prompt)}
-                >
-                  <FiMusic className="text-gray-600 text-2xl" />
-                  <span className="text-gray-800 font-medium">{prompt}</span>
-                </li>
-              ))}
-            </ul>
+        {messages.filter((msg) => msg.role === "user").length === 0 && (
+          <div
+            className="flex justify-center mt-8 rounded-md shadow-md p-6"
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.8)", // Slight transparency
+            }}
+          >
+            <div className="w-full max-w-2xl">
+              <h2 className="text-lg font-semibold mb-4 text-gray-800 text-center">
+                Try asking...
+              </h2>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {suggestedPrompts.map((prompt, index) => (
+                  <li
+                    key={index}
+                    className="p-4 flex items-center gap-4 bg-gray-200 hover:bg-gray-300 rounded-lg shadow cursor-pointer transition"
+                    style={{
+                      backgroundColor: "rgba(200, 200, 200, 0.8)", // Slight transparency
+                    }}
+                    onClick={() => setInput(prompt)}
+                  >
+                    <FiMusic className="text-gray-600 text-2xl" />
+                    <span className="text-gray-800 font-medium">{prompt}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Input Field */}
         <form
