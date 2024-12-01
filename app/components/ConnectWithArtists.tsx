@@ -86,7 +86,7 @@ const ConnectArtists: React.FC = () => {
         {/* Header */}
         <header className="text-center mb-8">
           <h1 className="text-5xl font-extrabold mb-2" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-            Rolodex
+            Community
           </h1>
           <p className="text-xl font-medium">Explore and connect with artists, producers, and more!</p>
         </header>

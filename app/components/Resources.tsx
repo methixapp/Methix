@@ -156,7 +156,7 @@ const Sources: React.FC = () => {
           >
             <h3 className="text-xl font-semibold">
               {category === "Community" ? (
-                <Link href="/community">{category}</Link>
+                <Link href="/connect">{category}</Link>
               ) : (
                 category
               )}

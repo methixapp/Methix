@@ -57,7 +57,7 @@ const Sidebar: React.FC = () => {
         {/* Sidebar Header */}
         <div className="p-6 text-center border-b border-gray-200">
           <h1 className="text-2xl font-bold tracking-wider">Methix</h1>
-          <p className="text-sm text-gray-500">Your AI Music Manager</p>
+          <p className="text-sm text-gray-500">Your Music Manager Reimagined</p>
         </div>
 
         {/* Navigation Items */}

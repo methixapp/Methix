@@ -4,51 +4,15 @@ import React, { useState, useEffect } from 'react';
 import { FiBarChart, FiMusic, FiUsers } from 'react-icons/fi'; // Example icons for placeholders
 import Sidebar from '../components/Sidebar'; // Import collapsible sidebar
 
-interface RoadmapStep {
-  title: string;
-  description: string;
-  progress: number; // percentage
-}
-
 export default function Roadmap() {
-  const [steps, setSteps] = useState<RoadmapStep[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null); // Track API errors
 
   useEffect(() => {
-    const fetchRoadmap = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const userMetrics = {
-          followers: 1500,
-          engagement: '12%',
-          songsReleased: 3,
-        };
-        const ambitions = 'Grow fanbase to 10,000 followers and release an EP by June.';
-
-        const response = await fetch('/api/career-roadmap', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ userMetrics, ambitions }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch roadmap');
-        }
-
-        const data = await response.json();
-        setSteps(data.steps || []);
-      } catch (error) {
-        console.error('Error fetching roadmap:', error);
-        setError('Could not load your roadmap.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRoadmap();
+    // Simulate loading delay for placeholder
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000); // Example: 1 second delay
   }, []);
 
   return (
@@ -85,8 +49,8 @@ export default function Roadmap() {
 
         <main className="relative z-10 flex-1 px-6 py-8 space-y-6 overflow-y-auto">
           {loading ? (
-            <p className="text-center text-gray-500">Loading roadmap...</p>
-          ) : error ? (
+            <p className="text-center text-gray-500">Loading...</p>
+          ) : (
             <div className="text-center space-y-10">
               <p className="text-2xl text-gray-800 font-semibold">
                 Welcome to your music career path!
@@ -118,25 +82,6 @@ export default function Roadmap() {
                 </div>
               </div>
             </div>
-          ) : (
-            steps.map((step, index) => (
-              <div
-                key={index}
-                className="p-6 bg-white rounded-lg shadow-md border border-gray-200"
-              >
-                <h2 className="text-lg font-semibold text-indigo-600">{step.title}</h2>
-                <p className="text-gray-600 mb-4">{step.description}</p>
-                <div className="w-full bg-gray-300 rounded-full h-4">
-                  <div
-                    className="bg-indigo-600 h-4 rounded-full"
-                    style={{ width: `${step.progress}%` }}
-                  />
-                </div>
-                <p className="mt-2 text-right text-sm text-gray-500">
-                  {step.progress}% complete
-                </p>
-              </div>
-            ))
           )}
         </main>
       </div>

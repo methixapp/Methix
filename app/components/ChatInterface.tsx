@@ -12,10 +12,39 @@ export default function ChatInterface() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>([]);
+  const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>([
+    "Who’s a good contact for Hip-Hop and R&B in the music industry?",
+    "How do I get on Spotify playlists?",
+    "How do I submit my music to the GRAMMYs?",
+  ]);
   const [welcomeMessage, setWelcomeMessage] = useState(
-    "Welcome, User! Let's make some magic with your music. Excited to get started with you!"
-  ); // Default welcome message
+    "Hi, Taylor. Welcome to our creative home. I’m your music manager. Let’s make things happen." // Demo Day Message
+  );
+
+  // Uncomment the following for dynamic welcome message fetching in the future
+  /*
+  useEffect(() => {
+    const fetchWelcomeMessage = async () => {
+      try {
+        const response = await fetch('/api/welcome-message', {
+          method: 'GET',
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch welcome message');
+        }
+
+        const data = await response.json();
+        setWelcomeMessage(data.message || welcomeMessage);
+      } catch (error) {
+        console.error('Error fetching welcome message:', error);
+      }
+    };
+
+    fetchWelcomeMessage();
+  }, []);
+  */
+
   const [theme, setTheme] = useState("default"); // Theme selection
   const [showThemeModal, setShowThemeModal] = useState(false); // Modal visibility
 
@@ -45,25 +74,37 @@ export default function ChatInterface() {
     setInput('');
 
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [...messages, userMessage],
-        }),
-      });
+      let responseContent;
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.details || 'Failed to get response');
+      // Predefined responses for specific demo day prompts
+      if (input === "Who’s a good contact for Hip-Hop and R&B in the music industry?") {
+        responseContent =
+          "Name: Walter J. Tucker\nTitle: Hip-Hop and R&B Partnerships Lead at Apple Music\n\nWhy He’s Important:\nWalter J. Tucker plays a vital role in helping artists gain visibility on Apple Music, particularly in the Hip-Hop and R&B genres. He can assist with play listing opportunities or connect you with colleagues for other genre-specific needs within the platform. His expertise and networking skills make him an essential contact for artists aiming to grow their audience.\n\nHow to Connect:\n1. Attend Networking Events:\n- Walter J. Tucker is the host of Being Indie is Major, a networking and showcase series for independent artists in Los Angeles, California.\n* Follow the Instagram page: @BeingIndieIsMajor\n* Stay updated on upcoming events and attend to introduce yourself or network with others in the music industry.\n2. Engage on Social Media:\n- Personal Instagram: @LiveTheBiz\n- Engage with his posts by liking, commenting, or sharing relevant content to build rapport.\n- Consider sending him a direct message (DM) with a clear and professional introduction, explaining how you admire his work and why you’d like to connect.\n3. Use Creative Ice Breakers:\n- Walter J. Tucker is a hat connoisseur, with a particular love for top hats. A thoughtful comment or casual conversation about hats could serve as an effective icebreaker.";
+      } else if (input === "How do I get on Spotify playlists?") {
+        responseContent =
+          "Understanding Playlists and How to Get Featured\n\nThree Main Types of Playlists\n1. Editorial Playlists\n- Curated by in-house teams from platforms like Spotify, Apple Music, or Tidal.\n- Example: African Heat (Spotify's popular Afrobeats playlist).\n- How to Submit:\n  - Submit your song through Spotify for Artists at least one week before its release.\n  - Use the submission feature in your artist profile's backend to pitch to the editorial team.\n- Tips for Success:\n  - Build relationships with editorial curators.\n  - Focus on high-quality music and strong performance metrics (streams, saves, and engagement).\n2. Algorithmic Playlists\n- Data-driven playlists based on listeners’ preferences and engagement.\n- Examples: Discover Weekly or Release Radar on Spotify.\n- How to Get Featured:\n  - Encourage fans to save your songs and listen all the way through without skipping.\n  - Drive high engagement with your current audience to boost your song’s visibility.\n3. User-Generated Playlists\n- Curated by individual users, influencers, or music enthusiasts.\n- Examples: Playlists created by niche influencers or popular music bloggers.\n- How to Get Featured:\n  - Research influencers and playlist curators in your genre.\n  - Build relationships and target smaller to mid-sized playlists before aiming for larger ones.";
+      } else if (input === "How do I submit my music to the GRAMMYs?") {
+        responseContent =
+          "GRAMMY Submission Guide for Artists\n\nKey Administrative Tasks:\n- Liner Notes: Always document your liner notes after recording a project. Include full credits for all contributors.\n- Metadata: Keep track of ISRC (International Standard Recording Code) and UPC (Universal Product Code) numbers, provided by distributors such as TuneCore or CD Baby.\n- Press Assets: Secure a high-quality press photo and document the photographer's name and contact information.\n\nSubmission Process:\n- Eligibility Check: Confirm your project aligns with GRAMMY eligibility guidelines.\n- Access to Submission Portal: Only Recording Academy members can access the portal.\n- If you’re not a member, connect with someone who is.\n\nHow to Connect with Arnaecia Alridge:\n- Who is Arnaecia Alridge? GRAMMY Board member and Chair of Education for the GRAMMY Texas Chapter.\n- Instagram: @arnaecia.";
+      } else {
+        // Generic API response for other inputs
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: [...messages, userMessage],
+          }),
+        });
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.details || 'Failed to get response');
+        responseContent = data.content;
       }
 
       setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
-          content: data.content,
+          content: responseContent,
         },
       ]);
     } catch (error) {
@@ -87,11 +128,12 @@ export default function ChatInterface() {
       className="min-h-screen w-screen flex flex-col"
       style={{
         background: theme === "default"
-          ? "linear-gradient(to bottom, rgba(249, 249, 249, 0.9), rgba(58, 58, 58, 0.6))"
-          : `linear-gradient(to bottom, rgba(249, 249, 249, 0.9), rgba(58, 58, 58, 0.6)), ${themeBackgrounds[theme]}`,
+          ? "linear-gradient(to bottom, rgba(200, 200, 200, 0.85), rgba(120, 120, 120, 0.5))"
+          : `linear-gradient(to bottom, rgba(220, 220, 220, 0.85), rgba(200, 200, 200, 0.5)), ${themeBackgrounds[theme]}`,
         backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed", // Ensures background stays in place while scrolling
+        backgroundPosition: "center center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
       }}
     >
       {/* Welcome Header */}
@@ -99,12 +141,12 @@ export default function ChatInterface() {
         <div
           className="rounded-lg px-4 py-2 bg-white shadow-md"
           style={{
-            marginLeft: "50px", // Moves the welcome message slightly to the right
-            maxWidth: "calc(100% - 200px)", // Ensures the box doesn't overlap the button
+            marginLeft: "50px",
+            maxWidth: "calc(100% - 200px)",
           }}
         >
           <h1
-            className="text-2xl font-semibold tracking-wide text-black"
+            className="text-xl font-semibold tracking-wide text-black"
             style={{
               fontFamily: "'Bebas Neue', sans-serif",
               wordWrap: "break-word",
@@ -128,13 +170,13 @@ export default function ChatInterface() {
           <div
             className="overflow-y-auto flex-1 rounded-lg shadow-inner p-6 space-y-4"
             style={{
-              backgroundColor: "rgba(255, 255, 255, 0.8)", // Slight transparency
+              backgroundColor: "rgba(255, 255, 255, 0.8)",
             }}
           >
             {messages.map((msg, index) => (
               <div
                 key={index}
-                className={`max-w-[75%] p-4 rounded-lg ${
+                className={`max-w-[60%] p-4 rounded-lg ${
                   msg.role === 'user'
                     ? 'ml-auto bg-gray-200 text-black'
                     : 'bg-gray-100 text-black'
@@ -158,7 +200,7 @@ export default function ChatInterface() {
           <div
             className="flex justify-center mt-8 rounded-md shadow-md p-6"
             style={{
-              backgroundColor: "rgba(255, 255, 255, 0.8)", // Slight transparency
+              backgroundColor: "rgba(255, 255, 255, 0.8)",
             }}
           >
             <div className="w-full max-w-2xl">
@@ -171,7 +213,7 @@ export default function ChatInterface() {
                     key={index}
                     className="p-4 flex items-center gap-4 bg-gray-200 hover:bg-gray-300 rounded-lg shadow cursor-pointer transition"
                     style={{
-                      backgroundColor: "rgba(220, 220, 220, 0.9)", // Lightened gray color
+                      backgroundColor: "rgba(220, 220, 220, 0.9)",
                     }}
                     onClick={() => setInput(prompt)}
                   >
@@ -189,7 +231,7 @@ export default function ChatInterface() {
           onSubmit={handleSubmit}
           className="flex items-center gap-4 mt-4 rounded-lg shadow-md p-4"
           style={{
-            backgroundColor: "rgba(255, 255, 255, 0.8)", // Slight transparency
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
           }}
         >
           <input
