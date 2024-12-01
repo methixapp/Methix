@@ -44,7 +44,7 @@ export async function POST(request: Request) {
       const generatedPrompts = data.choices[0]?.message?.content
         ?.split('\n') // Split into individual lines
         .filter((line: string) => line.trim()) // Remove blank lines
-        .map((line: string) => line.trim().substring(0, 100)) // Truncate to ensure 10-15 words max
+        .map((line: string) => line.trim().substring(0, 200)) // Truncate to ensure 10-15 words max
         .map((line: string) => `${line}`) // Prepend emoji
         .slice(0, 3); // Limit to 3 prompts
 
@@ -72,10 +72,10 @@ export async function POST(request: Request) {
             {
               role: 'system',
               content:
-                'You are a friendly and professional assistant for musicians. Like a music manager. Mention that you are a music manager in the welcome message. Generate a short, welcoming, and encouraging message (no more than 15 words) that feels warm and personal. Use "User" as a placeholder for the Users name for now. Avoid fancy or overly formal language.',
+                'You are a friendly and professional assistant for musicians. Mention that you are a music manager in the welcome message. Generate a short, welcoming, and encouraging message (no more than 15 words!) that feels warm and personal. Tokens must be less than 50. Use "User" as a placeholder for the Users name for now. Avoid fancy or overly formal language.',
             },
           ],
-          max_tokens: 20, // Keep the response concise
+          max_tokens: 40, // Keep the response concise
           temperature: 0.7,
           top_p: 0.9,
         }),

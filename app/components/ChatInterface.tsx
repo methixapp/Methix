@@ -18,7 +18,7 @@ export default function ChatInterface() {
   const [showThemeModal, setShowThemeModal] = useState(false); // Modal visibility
 
   const themeBackgrounds: Record<string, string> = {
-    default: "",
+    default: "", // Plain gradient background
     vintage: "url('/vinyl.png')",
     acoustic: "url('/acoustic-vibes.jpg')",
   };
@@ -130,21 +130,25 @@ export default function ChatInterface() {
   };
 
   return (
-    <div
-      className="h-screen w-screen flex flex-col"
-      style={{
-        backgroundImage: themeBackgrounds[theme],
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed", // Ensures background stays in place while scrolling
-      }}
-    >
+<div
+  className="min-h-screen w-screen flex flex-col"
+  style={{
+    background: theme === "default"
+      ? "linear-gradient(to bottom, rgba(249, 249, 249, 0.9), rgba(58, 58, 58, 0.6))" // Transparent gradient for default theme
+      : `linear-gradient(to bottom, rgba(249, 249, 249, 0.9), rgba(58, 58, 58, 0.9)), url(${themeBackgrounds[theme]})`, // Overlay image on gradient
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+
       {/* Welcome Header */}
       <header className="flex justify-between items-center px-6 py-4">
         <div
           className="rounded-lg px-4 py-2 bg-white shadow-md"
           style={{
             marginLeft: "50px", // Moves the welcome message slightly to the right
+            maxWidth: "90%", // Reduces the width of the box slightly on the right
+            paddingRight: "50px", // Adds padding on the right to make it appear less wide
           }}
         >
           <h1
@@ -259,8 +263,9 @@ export default function ChatInterface() {
             <h2 className="text-lg font-semibold mb-4 text-black">Select Your Music Style</h2>
             <ul className="space-y-3">
               {[
-                { name: "Vintage Vinyl", value: "vintage", icon: "🎙️", image: "/vinyl.png" },
-                { name: "Calm Acoustic Vibes", value: "acoustic", icon: "🎸", image: "/acoustic-vibes.jpg" },
+                { name: "Default", value: "default", icon: "🎨" }, // Default gradient option
+                { name: "Vintage Vinyl", value: "vintage", icon: "🎙️" },
+                { name: "Calm Acoustic Vibes", value: "acoustic", icon: "🎸" },
               ].map((themeOption) => (
                 <li
                   key={themeOption.value}
@@ -270,11 +275,6 @@ export default function ChatInterface() {
                   }}
                   className="p-3 bg-gray-100 hover:bg-gray-200 rounded-lg flex items-center gap-3 cursor-pointer"
                 >
-                  <img
-                    src={themeOption.image}
-                    alt={themeOption.name}
-                    className="w-10 h-10 rounded-md object-cover"
-                  />
                   <span className="text-black">{themeOption.icon} {themeOption.name}</span>
                 </li>
               ))}

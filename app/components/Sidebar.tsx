@@ -28,11 +28,11 @@ const Sidebar: React.FC = () => {
     { href: '/career-roadmap', label: 'Roadmap', icon: <FaMapSigns /> }, // Roadmap icon
     { href: '/resources', label: 'Resources', icon: <FaFolderOpen /> }, // Resources icon
     {
-      href: '/connect-with-artists',
+      href: '/rolodex',
       label: 'Rolodex',
       icon: <FaUserFriends />,
       subItems: [
-        { href: '/connect-with-artists', label: 'All Artists' },
+        { href: '/rolodex', label: 'Music Industry Experts' },
         { href: '/favorites', label: 'Favorites' },
       ],
     }, // Rolodex with subtabs
