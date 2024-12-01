@@ -154,18 +154,15 @@ const Sources: React.FC = () => {
                 ? 'bg-gray-900 text-white'
                 : 'bg-gray-50 text-gray-900 hover:bg-gray-100'}`}
           >
-            <h3 className="text-xl font-semibold">{category}</h3>
+            <h3 className="text-xl font-semibold">
+              {category === "Community" ? (
+                <Link href="/community">{category}</Link>
+              ) : (
+                category
+              )}
+            </h3>
           </button>
         ))}
-      </div>
-
-      {/* Connect Button */}
-      <div className="mt-6">
-        <Link href="/connect">
-          <button className="px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-700 transition">
-            Connect
-          </button>
-        </Link>
       </div>
 
       {/* Resources Grid */}

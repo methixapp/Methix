@@ -13,7 +13,9 @@ export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>([]);
-  const [welcomeMessage, setWelcomeMessage] = useState("Hi there! Welcome!"); // Default welcome message
+  const [welcomeMessage, setWelcomeMessage] = useState(
+    "Welcome, User! Let's make some magic with your music. Excited to get started with you!"
+  ); // Default welcome message
   const [theme, setTheme] = useState("default"); // Theme selection
   const [showThemeModal, setShowThemeModal] = useState(false); // Modal visibility
 
@@ -32,55 +34,6 @@ export default function ChatInterface() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
-  // Fetch suggested prompts
-  useEffect(() => {
-    const fetchPrompts = async () => {
-      try {
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'prompts' }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch prompts');
-        }
-
-        const data = await response.json();
-        setSuggestedPrompts(data.prompts || []);
-      } catch (error) {
-        console.error('Error fetching prompts:', error);
-      }
-    };
-
-    fetchPrompts();
-  }, []);
-
-  // Fetch welcome message
-  useEffect(() => {
-    const fetchWelcomeMessage = async () => {
-      try {
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type: 'welcomeMessage' }),
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch welcome message');
-        }
-
-        const data = await response.json();
-        setWelcomeMessage(data.content || "Hi there! Welcome!");
-      } catch (error) {
-        console.error('Error fetching welcome message:', error);
-        setWelcomeMessage("Hi there! Welcome!");
-      }
-    };
-
-    fetchWelcomeMessage();
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,29 +83,28 @@ export default function ChatInterface() {
   };
 
   return (
-<div
-  className="min-h-screen w-screen flex flex-col"
-  style={{
-    background: theme === "default"
-      ? "linear-gradient(to bottom, rgba(249, 249, 249, 0.9), rgba(58, 58, 58, 0.6))" // Transparent gradient for default theme
-      : `linear-gradient(to bottom, rgba(249, 249, 249, 0.9), rgba(58, 58, 58, 0.9)), url(${themeBackgrounds[theme]})`, // Overlay image on gradient
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
-
+    <div
+      className="min-h-screen w-screen flex flex-col"
+      style={{
+        background: theme === "default"
+          ? "linear-gradient(to bottom, rgba(249, 249, 249, 0.9), rgba(58, 58, 58, 0.6))"
+          : `linear-gradient(to bottom, rgba(249, 249, 249, 0.9), rgba(58, 58, 58, 0.6)), ${themeBackgrounds[theme]}`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed", // Ensures background stays in place while scrolling
+      }}
+    >
       {/* Welcome Header */}
       <header className="flex justify-between items-center px-6 py-4">
         <div
           className="rounded-lg px-4 py-2 bg-white shadow-md"
           style={{
             marginLeft: "50px", // Moves the welcome message slightly to the right
-            maxWidth: "90%", // Reduces the width of the box slightly on the right
-            paddingRight: "50px", // Adds padding on the right to make it appear less wide
+            maxWidth: "calc(100% - 200px)", // Ensures the box doesn't overlap the button
           }}
         >
           <h1
-            className="text-2xl font-semibold tracking-wide text-black" // Slightly larger font
+            className="text-2xl font-semibold tracking-wide text-black"
             style={{
               fontFamily: "'Bebas Neue', sans-serif",
               wordWrap: "break-word",
@@ -188,7 +140,9 @@ export default function ChatInterface() {
                     : 'bg-gray-100 text-black'
                 }`}
                 style={{
-                  backgroundColor: msg.role === "user" ? "rgba(240, 240, 240, 0.9)" : "rgba(230, 230, 230, 0.9)",
+                  backgroundColor: msg.role === "user"
+                    ? "rgba(240, 240, 240, 0.9)"
+                    : "rgba(230, 230, 230, 0.9)",
                 }}
               >
                 {msg.content}
@@ -263,7 +217,7 @@ export default function ChatInterface() {
             <h2 className="text-lg font-semibold mb-4 text-black">Select Your Music Style</h2>
             <ul className="space-y-3">
               {[
-                { name: "Default", value: "default", icon: "🎨" }, // Default gradient option
+                { name: "Default", value: "default", icon: "🎨" },
                 { name: "Vintage Vinyl", value: "vintage", icon: "🎙️" },
                 { name: "Calm Acoustic Vibes", value: "acoustic", icon: "🎸" },
               ].map((themeOption) => (
