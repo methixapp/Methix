@@ -25,7 +25,7 @@ export async function POST(request: Request) {
             {
               role: 'system',
               content:
-                'You are a creative assistant. Generate three unique prompts about the music industry, no longer than 10-15 words. Tokens MUST be less than 70. Each prompt should include an actionable or engaging suggestion. Prepend each prompt with a music emoji (either a guitar, piano, microphone, or musical score). Each prompt has a different music emoji. Avoid unnecessary formatting like ** or --.',
+                'You are a creative assistant music manager. Generate three unique prompts about the music industry, no longer than 10-15 words. Tokens MUST be less than 60. Each prompt should include an actionable or engaging suggestion. Prepend each prompt with a music emoji (either a guitar, piano, microphone, or musical score). Each prompt has a different music emoji. Avoid unnecessary formatting like ** or --.',
             },
           ],
           max_tokens: 70, // Limit tokens to ensure concise responses
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
       const generatedPrompts = data.choices[0]?.message?.content
         ?.split('\n') // Split into individual lines
         .filter((line: string) => line.trim()) // Remove blank lines
-        .map((line: string) => line.trim().substring(0, 50)) // Truncate to ensure 10-15 words max
+        .map((line: string) => line.trim().substring(0, 100)) // Truncate to ensure 10-15 words max
         .map((line: string) => `🎵 ${line}`) // Prepend emoji
         .slice(0, 3); // Limit to 3 prompts
 
@@ -72,10 +72,10 @@ export async function POST(request: Request) {
             {
               role: 'system',
               content:
-                'You are a friendly and professional assistant for musicians. Generate a short, welcoming, and encouraging message (no more than 20 words) that feels warm and personal. Avoid fancy or overly formal language.',
+                'You are a friendly and professional assistant for musicians. Like a music manager. Generate a short, welcoming, and encouraging message (no more than 15 words) that feels warm and personal. Use "User" as a placeholder for the Users name for now. Avoid fancy or overly formal language.',
             },
           ],
-          max_tokens: 30, // Keep the response concise
+          max_tokens: 20, // Keep the response concise
           temperature: 0.7,
           top_p: 0.9,
         }),
@@ -106,7 +106,7 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         messages,
-        max_tokens: 800,
+        max_tokens: 300,
         temperature: 0.7,
         frequency_penalty: 0,
         presence_penalty: 0,

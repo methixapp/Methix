@@ -36,16 +36,16 @@ export default function Home() {
           alt="Methix Logo"
           width={400}
           height={400}
-          className="mb-0"
+          className="mb-0 -mt-8" // Move logo slightly up
         />
         {/* Subheader */}
-        <p className="text-6xl font-light -mt-28 mb-20 tracking-wide">
-          Your Virtual Music Manager, Reimagined
+        <p className="text-6xl font-light -mt-36 mb-16 tracking-wide">
+          Your Music Manager Reimagined
         </p>
         {/* CTA */}
-        <div className="mt-14">
-          <h1 className="text-3xl font-light mb-16 tracking-tight leading-tight max-w-5xl italic">
-            Your Guide to the Inside Starts Now. Unlock your Path.
+        <div className="mt-10"> {/* Adjusted margin to move up */}
+          <h1 className="text-3xl font-light mb-12 tracking-tight leading-tight max-w-5xl italic">
+            Your Guide to the Inside Starts Now.
           </h1>
           <button
             onClick={handleSignInClick}

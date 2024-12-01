@@ -125,7 +125,7 @@ export default function SignIn() {
               onClick={handleChatTransition}
               className="mt-2 text-gray-800 hover:text-gray-600 underline"
             >
-              Go straight to Chat
+              Go Inside
             </button>
           </div>
         </div>

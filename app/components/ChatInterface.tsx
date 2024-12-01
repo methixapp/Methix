@@ -13,14 +13,13 @@ export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>([]);
-  const [welcomeMessage, setWelcomeMessage] = useState("Hi there!"); // Default welcome message
+  const [welcomeMessage, setWelcomeMessage] = useState("Hi there! Welcome!"); // Default welcome message
   const [theme, setTheme] = useState("default"); // Theme selection
   const [showThemeModal, setShowThemeModal] = useState(false); // Modal visibility
 
   const themeBackgrounds: Record<string, string> = {
     default: "",
     vintage: "url('/vinyl.png')",
-    stage: "url('/stage-lights.jpg')",
     acoustic: "url('/acoustic-vibes.jpg')",
   };
 
@@ -137,28 +136,31 @@ export default function ChatInterface() {
         backgroundImage: themeBackgrounds[theme],
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed", // Ensures background stays in place while scrolling
       }}
     >
       {/* Welcome Header */}
       <header className="flex justify-between items-center px-6 py-4">
-        <h1
-          className={`text-4xl font-semibold tracking-wide ${
-            theme === "stage" ? "text-white" : "text-black"
-          }`}
+        <div
+          className="rounded-lg px-4 py-2 bg-white shadow-md"
           style={{
-            fontFamily: "'Bebas Neue', sans-serif",
-            wordWrap: "break-word",
-            lineHeight: "1.4em",
-            marginLeft: "50px", // Slightly move the text to the right
-            ...(theme === "acoustic" && { textAlign: "left", marginLeft: "50px" }), // Specific style for acoustic theme
+            marginLeft: "50px", // Moves the welcome message slightly to the right
           }}
         >
-          {welcomeMessage}
-        </h1>
+          <h1
+            className="text-2xl font-semibold tracking-wide text-black" // Slightly larger font
+            style={{
+              fontFamily: "'Bebas Neue', sans-serif",
+              wordWrap: "break-word",
+              lineHeight: "1.4em",
+            }}
+          >
+            {welcomeMessage}
+          </h1>
+        </div>
         <button
           onClick={() => setShowThemeModal(true)}
-          className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+          className="px-3 py-1 text-sm bg-black text-white rounded-lg hover:bg-gray-800 transition"
         >
           Choose Theme
         </button>
@@ -166,30 +168,32 @@ export default function ChatInterface() {
 
       {/* Chat Content */}
       <main className="flex-1 flex flex-col px-6 py-4">
-        <div
-          className="overflow-y-auto flex-1 rounded-lg shadow-inner p-6 space-y-4"
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.8)", // Slight transparency
-          }}
-        >
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`max-w-[75%] p-4 rounded-lg ${
-                msg.role === 'user'
-                  ? 'ml-auto bg-gray-300 text-black'
-                  : 'bg-gray-200 text-black'
-              }`}
-              style={{
-                backgroundColor: msg.role === "user" ? "rgba(220, 220, 220, 0.8)" : "rgba(200, 200, 200, 0.8)",
-              }}
-            >
-              {msg.content}
-            </div>
-          ))}
-          {isLoading && <div className="text-gray-500 animate-pulse">Loading...</div>}
-          <div ref={messagesEndRef} />
-        </div>
+        {messages.length > 0 && (
+          <div
+            className="overflow-y-auto flex-1 rounded-lg shadow-inner p-6 space-y-4"
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.8)", // Slight transparency
+            }}
+          >
+            {messages.map((msg, index) => (
+              <div
+                key={index}
+                className={`max-w-[75%] p-4 rounded-lg ${
+                  msg.role === 'user'
+                    ? 'ml-auto bg-gray-200 text-black'
+                    : 'bg-gray-100 text-black'
+                }`}
+                style={{
+                  backgroundColor: msg.role === "user" ? "rgba(240, 240, 240, 0.9)" : "rgba(230, 230, 230, 0.9)",
+                }}
+              >
+                {msg.content}
+              </div>
+            ))}
+            {isLoading && <div className="text-gray-500 animate-pulse">Loading...</div>}
+            <div ref={messagesEndRef} />
+          </div>
+        )}
 
         {/* Suggested Prompts */}
         {messages.filter((msg) => msg.role === "user").length === 0 && (
@@ -209,7 +213,7 @@ export default function ChatInterface() {
                     key={index}
                     className="p-4 flex items-center gap-4 bg-gray-200 hover:bg-gray-300 rounded-lg shadow cursor-pointer transition"
                     style={{
-                      backgroundColor: "rgba(200, 200, 200, 0.8)", // Slight transparency
+                      backgroundColor: "rgba(220, 220, 220, 0.9)", // Lightened gray color
                     }}
                     onClick={() => setInput(prompt)}
                   >
@@ -234,7 +238,7 @@ export default function ChatInterface() {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Type a message..."
+            placeholder="How can I help?"
             className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400 bg-gray-50 text-black"
             disabled={isLoading}
           />
@@ -256,7 +260,6 @@ export default function ChatInterface() {
             <ul className="space-y-3">
               {[
                 { name: "Vintage Vinyl", value: "vintage", icon: "🎙️", image: "/vinyl.png" },
-                { name: "Vibrant Stage Lights", value: "stage", icon: "🎤", image: "/stage-lights.jpg" },
                 { name: "Calm Acoustic Vibes", value: "acoustic", icon: "🎸", image: "/acoustic-vibes.jpg" },
               ].map((themeOption) => (
                 <li
