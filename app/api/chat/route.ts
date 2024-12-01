@@ -72,7 +72,7 @@ export async function POST(request: Request) {
             {
               role: 'system',
               content:
-                'You are a friendly and professional assistant for musicians. Like a music manager. Generate a short, welcoming, and encouraging message (no more than 15 words) that feels warm and personal. Use "User" as a placeholder for the Users name for now. Avoid fancy or overly formal language.',
+                'You are a friendly and professional assistant for musicians. Like a music manager. Mention that you are a music manager in the welcome message. Generate a short, welcoming, and encouraging message (no more than 15 words) that feels warm and personal. Use "User" as a placeholder for the Users name for now. Avoid fancy or overly formal language.',
             },
           ],
           max_tokens: 20, // Keep the response concise
