@@ -45,7 +45,7 @@ export async function POST(request: Request) {
         ?.split('\n') // Split into individual lines
         .filter((line: string) => line.trim()) // Remove blank lines
         .map((line: string) => line.trim().substring(0, 100)) // Truncate to ensure 10-15 words max
-        .map((line: string) => `🎵 ${line}`) // Prepend emoji
+        .map((line: string) => `${line}`) // Prepend emoji
         .slice(0, 3); // Limit to 3 prompts
 
       return NextResponse.json({
