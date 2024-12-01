@@ -125,16 +125,16 @@ export default function ChatInterface() {
 
   return (
     <div
-      className="min-h-screen w-screen flex flex-col"
-      style={{
-        background: theme === "default"
-          ? "linear-gradient(to bottom, rgba(200, 200, 200, 0.85), rgba(120, 120, 120, 0.5))"
-          : `linear-gradient(to bottom, rgba(220, 220, 220, 0.85), rgba(200, 200, 200, 0.5)), ${themeBackgrounds[theme]}`,
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-      }}
+    className="min-h-screen w-screen flex flex-col"
+    style={{
+      background: theme === "default"
+        ? "linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(235, 235, 235, 0.85))"
+        : `linear-gradient(to bottom, rgba(245, 245, 245, 0.95), rgba(225, 225, 225, 0.6)), ${themeBackgrounds[theme]}`,
+      backgroundSize: "contain",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+      backgroundAttachment: "fixed",
+    }}
     >
       {/* Welcome Header */}
       <header className="flex justify-between items-center px-6 py-4">
@@ -146,7 +146,7 @@ export default function ChatInterface() {
           }}
         >
           <h1
-            className="text-xl font-semibold tracking-wide text-black"
+            className="text-1.5xl font-semibold tracking-wide text-black"
             style={{
               fontFamily: "'Bebas Neue', sans-serif",
               wordWrap: "break-word",
