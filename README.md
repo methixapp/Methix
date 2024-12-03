@@ -1,41 +1,82 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎵 Methix  
+A tech company empowering independent music artists  
 
-## Getting Started
+---
 
-First, run the development server:
+## 🚀 About  
+**Methix by A Jam**: Bridging the gap between independent artists' current status and their dreams  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎯 Vision  
+Creating a music industry with equal access to career-building resources and insights, regardless of network or location.  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔍 The Problem  
+Independent artists face major challenges:  
 
-## Learn More
+- **41%** - Lack of visibility as a major barrier  
+- **39%** - Financial limitations for promotion, recording, or touring  
+- **36%** - Struggle with fanbase growth (<500 monthly Spotify listeners)  
+- Many find industry structures complex (e.g., contracts, royalties)  
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 💡 Our Solution  
+### Four Key Pillars:  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1️⃣ **Boosting Visibility**  
+- Tailored career advice  
+- Audience reach expansion  
 
-## Deploy on Vercel
+2️⃣ **Growing Fanbases**  
+- Empowering self-management  
+- Eliminating traditional management fees  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3️⃣ **Affordability**  
+- Industry-backed strategies  
+- Effective fan engagement  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# MethixApp
-=======
-# Methix
->>>>>>> ef43d7e9ed4d99ea230aa4b16f5defb94998939c
+4️⃣ **Resources**  
+- Music business education  
+- Mental health support  
+
+---
+
+## ⚙️ Core Features  
+
+### 🎭 Manager  
+- Real-time career guidance  
+- Personalized support system  
+
+### 📚 Resources  
+- Coverage of key industry topics  
+- Financial planning tools  
+- Mental health support  
+- Promotion strategies  
+
+### 🗺️ Roadmap  
+- Visual progress tracking  
+- Milestone management  
+
+### 📇 Rolodex  
+- Connections to industry experts  
+- Networking opportunities  
+
+---
+
+## 🔧 Technology  
+Leveraging cutting-edge technology to democratize access to insider resources  
+
+---
+
+## 📊 Data Attribution  
+Special thanks to **Azure Resource** for providing industry insights and data  
+
+---
+
+## 📝 License  
+© 2024 Methix by A Jam. All rights reserved.  
+
+Created with ❤️ by **Christopher Lanuza** and **Carys Garvey**  
